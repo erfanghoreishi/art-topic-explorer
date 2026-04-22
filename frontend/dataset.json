@@ -1,0 +1,1305 @@
+{
+  "topics": [
+    {
+      "id": "classification:Artists' Tools",
+      "name": "Artists' Tools",
+      "count": 25,
+      "subtopics": [
+        {
+          "id": "era:20th century",
+          "name": "20th century",
+          "eraSource": "century",
+          "count": 24,
+          "items": [
+            {
+              "id": 330841,
+              "title": "Paint roller",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019009",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/330841",
+              "lastUpdate": "2026-04-21T17:06:49-04:00"
+            },
+            {
+              "id": 330863,
+              "title": "Paint roller frame",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019025",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/330863",
+              "lastUpdate": "2026-04-21T17:06:49-04:00"
+            },
+            {
+              "id": 332456,
+              "title": "Plane",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019473",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332456",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 332457,
+              "title": "Box of Nupastel color sticks",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019454",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332457",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 332459,
+              "title": "Box of No. 8 Crayola crayons",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019453",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332459",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 332460,
+              "title": "Box of colored chalks",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019216",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332460",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 332461,
+              "title": "Metal box of pins",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019212",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332461",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 332462,
+              "title": "Insulin syringe",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019451",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332462",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 332469,
+              "title": "Box of erasers",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019215",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332469",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 332470,
+              "title": "Box of crayons",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019206",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332470",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 332471,
+              "title": "Personalized embosser",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019466",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332471",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 332484,
+              "title": "Box of staples",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019585",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332484",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 332485,
+              "title": "Box of staples",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019579",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332485",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 332486,
+              "title": "Box of staples",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019573",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332486",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 332508,
+              "title": "Fabric tape",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019309",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332508",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 332509,
+              "title": "Tongue depressor",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019103",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332509",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 332510,
+              "title": "Level",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019501",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332510",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 332511,
+              "title": "Wooden paint stirrer",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019504",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332511",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 332512,
+              "title": "Wooden paint stirrer",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019350",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332512",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 332515,
+              "title": "Rubber spatula",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019431",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332515",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 332516,
+              "title": "Hammer",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019520",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332516",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 332517,
+              "title": "Rubber stamp",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019257",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332517",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 332518,
+              "title": "Glass eye dropper",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019419",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332518",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 332519,
+              "title": "Needlenose pliers",
+              "classification": "Artists' Tools",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019470",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332519",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            }
+          ]
+        },
+        {
+          "id": "era:Unknown Era",
+          "name": "Unknown Era",
+          "eraSource": "unknown",
+          "count": 1,
+          "items": [
+            {
+              "id": 352632,
+              "title": "Wooden tool box",
+              "classification": "Artists' Tools",
+              "era": "Unknown Era",
+              "eraSource": "unknown",
+              "period": null,
+              "century": null,
+              "dated": null,
+              "culture": null,
+              "medium": null,
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR019846",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/352632",
+              "lastUpdate": "2026-04-21T17:07:15-04:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "classification:Fragments",
+      "name": "Fragments",
+      "count": 24,
+      "subtopics": [
+        {
+          "id": "era:20th century",
+          "name": "20th century",
+          "eraSource": "century",
+          "count": 24,
+          "items": [
+            {
+              "id": 332577,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018995",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332577",
+              "lastUpdate": "2026-04-21T17:06:51-04:00"
+            },
+            {
+              "id": 356001,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018994",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356001",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356002,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018993",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356002",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356003,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018992",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356003",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356004,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018991",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356004",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356005,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018990",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356005",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356006,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018989",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356006",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356007,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018988",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356007",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356008,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018987",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356008",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356009,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018986",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356009",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356010,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018985",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356010",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356011,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018984",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356011",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356012,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018983",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356012",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356013,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018982",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356013",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356014,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018981",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356014",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356015,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018980",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356015",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356016,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018979",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356016",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356017,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018978",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356017",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356018,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018977",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356018",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356019,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018976",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356019",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356020,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018975",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356020",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356021,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018974",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356021",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356022,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018973",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356022",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            },
+            {
+              "id": 356023,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018972",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/356023",
+              "lastUpdate": "2026-04-21T17:07:19-04:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "classification:Plaques",
+      "name": "Plaques",
+      "count": 5,
+      "subtopics": [
+        {
+          "id": "era:16th century",
+          "name": "16th century",
+          "eraSource": "century",
+          "count": 1,
+          "items": [
+            {
+              "id": 277492,
+              "title": "The Lute Player",
+              "classification": "Plaques",
+              "era": "16th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "16th century",
+              "dated": "16th century",
+              "culture": "Italian",
+              "medium": "Etching on off-white antique laid paper",
+              "people": [
+                "Giovanni Francesco Grimaldi"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:INV159081_dynmc",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/277492",
+              "lastUpdate": "2026-04-21T17:05:38-04:00"
+            }
+          ]
+        },
+        {
+          "id": "era:Bronze Age, Middle",
+          "name": "Bronze Age, Middle",
+          "eraSource": "period",
+          "count": 1,
+          "items": [
+            {
+              "id": 287362,
+              "title": "Chariot Wheel or Sun Disk",
+              "classification": "Plaques",
+              "era": "Bronze Age, Middle",
+              "eraSource": "period",
+              "period": "Bronze Age, Middle",
+              "century": null,
+              "dated": "c. 2000-1000 BCE",
+              "culture": "Near Eastern",
+              "medium": "Terracotta",
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:VRS15715_dynmc",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/287362",
+              "lastUpdate": "2026-04-21T17:05:49-04:00"
+            }
+          ]
+        },
+        {
+          "id": "era:Roman Imperial period",
+          "name": "Roman Imperial period",
+          "eraSource": "period",
+          "count": 1,
+          "items": [
+            {
+              "id": 288974,
+              "title": "Votive Ornament",
+              "classification": "Plaques",
+              "era": "Roman Imperial period",
+              "eraSource": "period",
+              "period": "Roman Imperial period",
+              "century": "1st-2nd century CE",
+              "dated": "1st-2nd century CE",
+              "culture": "Roman",
+              "medium": "Gold",
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:VRS15747_dynmc",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/288974",
+              "lastUpdate": "2026-04-21T17:05:52-04:00"
+            }
+          ]
+        },
+        {
+          "id": "era:Roman Imperial period, Middle",
+          "name": "Roman Imperial period, Middle",
+          "eraSource": "period",
+          "count": 1,
+          "items": [
+            {
+              "id": 288973,
+              "title": "Silver Votive Ornament",
+              "classification": "Plaques",
+              "era": "Roman Imperial period, Middle",
+              "eraSource": "period",
+              "period": "Roman Imperial period, Middle",
+              "century": null,
+              "dated": null,
+              "culture": "Roman",
+              "medium": "Silver",
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:INV028084_dynmc",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/288973",
+              "lastUpdate": "2026-04-21T17:05:52-04:00"
+            }
+          ]
+        },
+        {
+          "id": "era:Zhou dynasty, Eastern Zhou period, 770-256 BCE",
+          "name": "Zhou dynasty, Eastern Zhou period, 770-256 BCE",
+          "eraSource": "period",
+          "count": 1,
+          "items": [
+            {
+              "id": 352485,
+              "title": "Plaque: Wild Goat and Deer",
+              "classification": "Plaques",
+              "era": "Zhou dynasty, Eastern Zhou period, 770-256 BCE",
+              "eraSource": "period",
+              "period": "Zhou dynasty, Eastern Zhou period, 770-256 BCE",
+              "century": "6th-5th century BCE",
+              "dated": "600-400 BCE",
+              "culture": "East Asian",
+              "medium": "leaded bronze",
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:761941",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/352485",
+              "lastUpdate": "2026-04-21T17:07:15-04:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "classification:(not assigned)",
+      "name": "(not assigned)",
+      "count": 4,
+      "subtopics": [
+        {
+          "id": "era:18th century",
+          "name": "18th century",
+          "eraSource": "century",
+          "count": 1,
+          "items": [
+            {
+              "id": 274901,
+              "title": "Richard Brinsley Sheridan",
+              "classification": "(not assigned)",
+              "era": "18th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "18th century",
+              "dated": "18th century",
+              "culture": "British",
+              "medium": null,
+              "people": [
+                "John Hall",
+                "After Sir Joshua Reynolds"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:INV100208_dynmc",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/274901",
+              "lastUpdate": "2026-04-21T17:05:35-04:00"
+            }
+          ]
+        },
+        {
+          "id": "era:20th century",
+          "name": "20th century",
+          "eraSource": "century",
+          "count": 1,
+          "items": [
+            {
+              "id": 262778,
+              "title": "The Mussel Gatherers",
+              "classification": "(not assigned)",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "1913",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Henry Wolf",
+                "After Homer Dodge Martin"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:INV154504_dynmc",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/262778",
+              "lastUpdate": "2026-04-21T17:05:19-04:00"
+            }
+          ]
+        },
+        {
+          "id": "era:Late Period to Roman",
+          "name": "Late Period to Roman",
+          "eraSource": "period",
+          "count": 1,
+          "items": [
+            {
+              "id": 292430,
+              "title": "Collection of Beads and Amulets",
+              "classification": "(not assigned)",
+              "era": "Late Period to Roman",
+              "eraSource": "period",
+              "period": "Late Period to Roman",
+              "century": "1st millennium BCE-1st millenium CE",
+              "dated": "1st Millennium BCE-1st Millennium CE",
+              "culture": "Egyptian",
+              "medium": "Faience, fritware, stone, copper alloy, etc.",
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:INV028585_dynmc",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/292430",
+              "lastUpdate": "2026-04-21T17:05:58-04:00"
+            }
+          ]
+        },
+        {
+          "id": "era:Unknown Era",
+          "name": "Unknown Era",
+          "eraSource": "unknown",
+          "count": 1,
+          "items": [
+            {
+              "id": 213615,
+              "title": "Set of Four Pigment Brushes, from a set of Japanese printing tools",
+              "classification": "(not assigned)",
+              "era": "Unknown Era",
+              "eraSource": "unknown",
+              "period": null,
+              "century": null,
+              "dated": null,
+              "culture": "Japanese",
+              "medium": "Four wood or reed-handled brushes with plant-fiber tips",
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:768118",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/213615",
+              "lastUpdate": "2026-04-21T17:04:12-04:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "classification:Ritual Implements",
+      "name": "Ritual Implements",
+      "count": 2,
+      "subtopics": [
+        {
+          "id": "era:1st millennium CE",
+          "name": "1st millennium CE",
+          "eraSource": "century",
+          "count": 1,
+          "items": [
+            {
+              "id": 204721,
+              "title": "Two Jade Tallies in the Form of Crouching Tigers (Hufu)",
+              "classification": "Ritual Implements",
+              "era": "1st millennium CE",
+              "eraSource": "century",
+              "period": null,
+              "century": "1st millennium CE",
+              "dated": "date uncertain",
+              "culture": "Chinese",
+              "medium": "Mottled yellow nephrite",
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:VRS49906_dynmc",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/204721",
+              "lastUpdate": "2026-04-21T17:04:00-04:00"
+            }
+          ]
+        },
+        {
+          "id": "era:Neolithic period",
+          "name": "Neolithic period",
+          "eraSource": "period",
+          "count": 1,
+          "items": [
+            {
+              "id": 204498,
+              "title": "Jade Implement",
+              "classification": "Ritual Implements",
+              "era": "Neolithic period",
+              "eraSource": "period",
+              "period": "Neolithic period",
+              "century": "4th-1st millennium BCE",
+              "dated": "date uncertain",
+              "culture": "Chinese",
+              "medium": "Green stone",
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:CARP09817_dynmc",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/204498",
+              "lastUpdate": "2026-04-21T17:03:59-04:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "classification:Calligraphy",
+      "name": "Calligraphy",
+      "count": 1,
+      "subtopics": [
+        {
+          "id": "era:19th century",
+          "name": "19th century",
+          "eraSource": "century",
+          "count": 1,
+          "items": [
+            {
+              "id": 212673,
+              "title": "Invocation (Basmala)",
+              "classification": "Calligraphy",
+              "era": "19th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "19th century",
+              "dated": "1845",
+              "culture": "Persian",
+              "medium": "Ink, opaque watercolor and gold on paper",
+              "people": [
+                "Calligraphy by Muhammad Qazwini"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:75705_dynmc",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/212673",
+              "lastUpdate": "2026-04-21T17:04:11-04:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "classification:Documents",
+      "name": "Documents",
+      "count": 1,
+      "subtopics": [
+        {
+          "id": "era:16th century",
+          "name": "16th century",
+          "eraSource": "century",
+          "count": 1,
+          "items": [
+            {
+              "id": 51222,
+              "title": "Trees Near a Pool of Water",
+              "classification": "Documents",
+              "era": "16th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "16th century",
+              "dated": "c. 1530",
+              "culture": "Italian",
+              "medium": "Brown ink over charcoal on cream antique laid paper",
+              "people": [
+                "Titian (Tiziano Vecellio)"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:75720_dynmc",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/51222",
+              "lastUpdate": "2026-04-21T17:01:37-04:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "classification:Mirrors",
+      "name": "Mirrors",
+      "count": 1,
+      "subtopics": [
+        {
+          "id": "era:Tang dynasty, 618-907",
+          "name": "Tang dynasty, 618-907",
+          "eraSource": "period",
+          "count": 1,
+          "items": [
+            {
+              "id": 209837,
+              "title": "Small Octofoil Mirror with Relief Decoration of Two Immortals, One Riding a Horse, the Other a Lion, Between Stylized Mountains",
+              "classification": "Mirrors",
+              "era": "Tang dynasty, 618-907",
+              "eraSource": "period",
+              "period": "Tang dynasty, 618-907",
+              "century": "8th century",
+              "dated": "8th century",
+              "culture": "Chinese",
+              "medium": "Cast bronze",
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:DDC111116_dynmc",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/209837",
+              "lastUpdate": "2026-04-21T17:04:07-04:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "classification:Prints",
+      "name": "Prints",
+      "count": 1,
+      "subtopics": [
+        {
+          "id": "era:16th century",
+          "name": "16th century",
+          "eraSource": "century",
+          "count": 1,
+          "items": [
+            {
+              "id": 250377,
+              "title": "Circumcision",
+              "classification": "Prints",
+              "era": "16th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "16th century",
+              "dated": "before 1573",
+              "culture": "Netherlandish",
+              "medium": "Engraving print in black ink on off-white antique laid paper, darkened and soiled",
+              "people": [
+                "Hieronymus Wierix",
+                "After Chrispijn van den Broeck"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:INV189596_dynmc",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/250377",
+              "lastUpdate": "2026-04-21T17:05:04-04:00"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "lastUpdated": "2026-04-22T19:42:16.274546+00:00",
+  "source": {
+    "endpoint": "/object",
+    "filters": {
+      "hasimage": 1
+    }
+  }
+}

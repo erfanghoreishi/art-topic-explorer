@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Harvard Art Museums Topic Explorer</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <h1>Harvard Art Museums Topic Explorer</h1>
+        <p>Classification -> Era -> Artwork</p>
+      </div>
+      <div class="status">
+        <div id="last-updated" class="meta">Last updated: --</div>
+        <div id="dataset-stats" class="meta">Topics: -- | Artworks: --</div>
+        <button id="refresh-btn" class="btn">Refresh</button>
+      </div>
+    </header>
+
+    <nav id="breadcrumbs" class="breadcrumbs"></nav>
+    <main id="app" class="app"></main>
+
+    <dialog id="detail-dialog" class="detail-dialog">
+      <article id="detail-content"></article>
+      <form method="dialog" class="detail-close-row">
+        <button class="btn">Close</button>
+      </form>
+    </dialog>
+
+    <script src="./config.js"></script>
+    <script src="./app.js"></script>
+  </body>
+  </html>
