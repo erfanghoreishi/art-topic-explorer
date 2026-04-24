@@ -127,6 +127,7 @@ Set dataset URL in `frontend/config.js`:
 ```js
 window.APP_CONFIG = {
   datasetUrl: "https://<your-bucket-or-cdn>/datasets/topic_tree.json",
+  adminApiUrl: "https://<your-admin-api-endpoint>",
 };
 ```
 
@@ -138,6 +139,18 @@ python3 -m http.server 8080
 
 Then open:
 - `http://localhost:8080/frontend/`
+
+Frontend now includes visible admin controls:
+- `Admin Login` / `Logout`
+- `Refresh Now` and `Set Schedule` buttons are shown only after successful login
+
+Login flow:
+1. Click `Admin Login`
+2. Enter token in modal
+3. Frontend calls `{"action":"auth-check"}` on `adminApiUrl`
+4. On success, admin controls are activated for this browser session
+
+Admin token is stored in `sessionStorage` (clears on tab close).
 
 ## Step 9: End-to-end dry run + demo polish
 
@@ -159,3 +172,66 @@ Demo sequence:
    - Artwork grid
    - Detail modal
 4. Use Refresh button once to show data reload
+
+## Minimal admin controls (shared-secret)
+
+Lambda entrypoint:
+- `backend.src.admin_handler.handler`
+
+Headers:
+- `x-admin-token: <ADMIN_TOKEN>`
+
+Actions (`POST` JSON body):
+
+1. Manual refresh:
+
+```json
+{"action":"refresh-now"}
+```
+
+2. Schedule change (preset-only):
+
+```json
+{"action":"set-schedule","preset":"hourly"}
+```
+
+Allowed presets:
+- `hourly` -> `rate(1 hour)`
+- `every_6_hours` -> `rate(6 hours)`
+- `daily` -> `rate(1 day)`
+
+Safety guardrails:
+- no public auth flow; shared secret required
+- refresh cooldown (`ADMIN_REFRESH_COOLDOWN_SECONDS`)
+- schedule accepts presets only (no arbitrary cron)
+- requires existing EventBridge rule (`EVENTBRIDGE_RULE_NAME`)
+
+## CI/CD (GitHub Actions)
+
+This repo now includes:
+- `.github/workflows/ci.yml` -> runs tests + syntax checks on PRs and `main` pushes
+- `.github/workflows/deploy-main.yml` -> runs tests first, then deploys Lambdas on `main` push (or manual run)
+- `scripts/package_lambda.sh` -> builds `build/lambda_bundle.zip` used by deploy
+
+### Required GitHub repository variables
+
+Set these in **Settings -> Secrets and variables -> Actions -> Variables**:
+- `AWS_ROLE_ARN` (OIDC role to assume)
+- `AWS_REGION` (example: `eu-west-2`)
+- `INGESTION_LAMBDA_NAME`
+- `ADMIN_LAMBDA_NAME`
+- `FRONTEND_DATASET_URL` (public URL to your dataset JSON)
+- `ADMIN_API_URL` (public URL to your `/admin` endpoint)
+- `FRONTEND_BUCKET` (optional; if empty, frontend upload step is skipped)
+
+### Deploy behavior
+
+On push to `main`:
+1. Run tests and syntax checks
+2. Build Lambda bundle
+3. Update ingestion/admin Lambda code
+4. Render frontend `config.js` from workflow variables
+5. Sync frontend to S3 (if `FRONTEND_BUCKET` is set)
+
+Recommended:
+- protect `main` branch and require the `CI` workflow to pass before merge

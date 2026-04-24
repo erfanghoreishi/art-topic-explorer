@@ -1,0 +1,92 @@
+name: Deploy Main
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: python -m pip install -r backend/requirements.txt
+
+      - name: Run backend tests
+        run: python -m pytest -q backend/tests -k "not real_api"
+
+      - name: Run syntax checks
+        run: |
+          python -m py_compile backend/src/*.py
+          node --check frontend/app.js
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Package lambda bundle
+        run: |
+          chmod +x scripts/package_lambda.sh
+          ./scripts/package_lambda.sh
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Deploy ingestion lambda
+        run: |
+          aws lambda update-function-code \
+            --function-name "${{ vars.INGESTION_LAMBDA_NAME }}" \
+            --zip-file fileb://build/lambda_bundle.zip
+
+      - name: Deploy admin lambda
+        run: |
+          aws lambda update-function-code \
+            --function-name "${{ vars.ADMIN_LAMBDA_NAME }}" \
+            --zip-file fileb://build/lambda_bundle.zip
+
+      - name: Render frontend config
+        run: |
+          cat > frontend/config.js <<EOF
+          window.APP_CONFIG = {
+            datasetUrl: "${{ vars.FRONTEND_DATASET_URL }}",
+            adminApiUrl: "${{ vars.ADMIN_API_URL }}"
+          };
+          EOF
+
+      - name: Upload frontend to S3 (optional)
+        if: ${{ vars.FRONTEND_BUCKET != '' }}
+        run: |
+          aws s3 sync frontend "s3://${{ vars.FRONTEND_BUCKET }}" \
+            --delete \
+            --exclude "dataset.json"
+

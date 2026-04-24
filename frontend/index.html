@@ -15,7 +15,25 @@
       <div class="status">
         <div id="last-updated" class="meta">Last updated: --</div>
         <div id="dataset-stats" class="meta">Topics: -- | Artworks: --</div>
-        <button id="refresh-btn" class="btn">Refresh</button>
+        <div class="action-row">
+          <button id="refresh-btn" class="btn">Refresh</button>
+          <button id="admin-login-btn" class="btn secondary">Admin Login</button>
+          <button id="admin-logout-btn" class="btn secondary hidden">Logout</button>
+        </div>
+        <div id="admin-controls" class="admin-controls hidden">
+          <div class="meta">Admin controls active</div>
+          <div class="action-row">
+            <button id="admin-refresh-btn" class="btn secondary">Refresh Now</button>
+          </div>
+          <div class="action-row">
+          <select id="schedule-preset" class="select">
+            <option value="hourly">Hourly</option>
+            <option value="every_6_hours">Every 6 Hours</option>
+            <option value="daily">Daily</option>
+          </select>
+            <button id="schedule-btn" class="btn secondary">Set Schedule</button>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -26,6 +44,20 @@
       <article id="detail-content"></article>
       <form method="dialog" class="detail-close-row">
         <button class="btn">Close</button>
+      </form>
+    </dialog>
+
+    <dialog id="admin-login-dialog" class="admin-dialog">
+      <form id="admin-login-form" method="dialog" class="admin-form">
+        <h3>Admin Login</h3>
+        <p class="meta">Enter admin token to enable refresh/schedule controls.</p>
+        <label for="admin-token-input">Admin token</label>
+        <input id="admin-token-input" class="input" type="password" autocomplete="off" required />
+        <div id="admin-login-error" class="state error hidden"></div>
+        <div class="action-row">
+          <button value="cancel" class="btn secondary">Cancel</button>
+          <button id="admin-login-submit" value="default" class="btn">Login</button>
+        </div>
       </form>
     </dialog>
 

@@ -6,6 +6,16 @@
   const lastUpdatedEl = document.getElementById("last-updated");
   const datasetStatsEl = document.getElementById("dataset-stats");
   const refreshBtn = document.getElementById("refresh-btn");
+  const adminLoginBtn = document.getElementById("admin-login-btn");
+  const adminLogoutBtn = document.getElementById("admin-logout-btn");
+  const adminControlsEl = document.getElementById("admin-controls");
+  const adminRefreshBtn = document.getElementById("admin-refresh-btn");
+  const scheduleBtn = document.getElementById("schedule-btn");
+  const schedulePresetEl = document.getElementById("schedule-preset");
+  const adminLoginDialog = document.getElementById("admin-login-dialog");
+  const adminLoginForm = document.getElementById("admin-login-form");
+  const adminTokenInput = document.getElementById("admin-token-input");
+  const adminLoginError = document.getElementById("admin-login-error");
   const detailDialog = document.getElementById("detail-dialog");
   const detailContent = document.getElementById("detail-content");
 
@@ -16,7 +26,29 @@
     artworksById: new Map(),
     loading: false,
     error: "",
+    adminToken: "",
   };
+
+  function setAdminUi(loggedIn) {
+    adminControlsEl?.classList.toggle("hidden", !loggedIn);
+    adminLogoutBtn?.classList.toggle("hidden", !loggedIn);
+    adminLoginBtn?.classList.toggle("hidden", loggedIn);
+  }
+
+  function saveAdminToken(token) {
+    state.adminToken = token || "";
+    if (state.adminToken) {
+      sessionStorage.setItem("adminToken", state.adminToken);
+    } else {
+      sessionStorage.removeItem("adminToken");
+    }
+    setAdminUi(Boolean(state.adminToken));
+  }
+
+  function initAdminToken() {
+    const existing = sessionStorage.getItem("adminToken") || "";
+    saveAdminToken(existing);
+  }
 
   function escapeHtml(text) {
     return String(text ?? "")
@@ -359,6 +391,132 @@
     loadDataset();
   });
 
+  async function callAdminApi(payload) {
+    const adminApiUrl = window.APP_CONFIG?.adminApiUrl || "";
+    if (!adminApiUrl) {
+      alert("Admin API URL is not configured. Set APP_CONFIG.adminApiUrl in frontend/config.js");
+      return null;
+    }
+
+    if (!state.adminToken) {
+      openAdminLoginDialog();
+      return null;
+    }
+
+    const res = await fetch(adminApiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-admin-token": state.adminToken,
+      },
+      body: JSON.stringify(payload),
+    });
+    const text = await res.text();
+    let parsed;
+    try {
+      parsed = JSON.parse(text);
+    } catch {
+      parsed = { raw: text };
+    }
+
+    if (res.status === 401) {
+      saveAdminToken("");
+      alert("Admin token was rejected.");
+      return null;
+    }
+    if (!res.ok) {
+      alert(`Admin action failed (${res.status}): ${parsed?.message || text}`);
+      return null;
+    }
+    return parsed;
+  }
+
+  adminRefreshBtn?.addEventListener("click", async () => {
+    const result = await callAdminApi({ action: "refresh-now" });
+    if (result) {
+      const msg =
+        result.status === "cooldown"
+          ? `Cooldown active. Retry in ${result.retryAfterSeconds}s`
+          : "Refresh request accepted.";
+      alert(msg);
+    }
+  });
+
+  scheduleBtn?.addEventListener("click", async () => {
+    const preset = schedulePresetEl?.value || "hourly";
+    const result = await callAdminApi({ action: "set-schedule", preset });
+    if (result) {
+      alert(`Schedule updated to ${result.scheduleExpression || preset}`);
+    }
+  });
+
+  function setLoginError(msg) {
+    if (!msg) {
+      adminLoginError?.classList.add("hidden");
+      adminLoginError.textContent = "";
+      return;
+    }
+    adminLoginError?.classList.remove("hidden");
+    adminLoginError.textContent = msg;
+  }
+
+  function openAdminLoginDialog() {
+    setLoginError("");
+    adminTokenInput.value = "";
+    if (typeof adminLoginDialog.showModal === "function") {
+      adminLoginDialog.showModal();
+    }
+  }
+
+  async function verifyAdminToken(token) {
+    const adminApiUrl = window.APP_CONFIG?.adminApiUrl || "";
+    if (!adminApiUrl) {
+      throw new Error("Admin API URL is not configured.");
+    }
+    const res = await fetch(adminApiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-admin-token": token,
+      },
+      body: JSON.stringify({ action: "auth-check" }),
+    });
+    if (!res.ok) {
+      if (res.status === 401) {
+        throw new Error("Invalid admin token.");
+      }
+      throw new Error(`Login failed (${res.status}).`);
+    }
+    return true;
+  }
+
+  adminLoginBtn?.addEventListener("click", () => {
+    openAdminLoginDialog();
+  });
+
+  adminLogoutBtn?.addEventListener("click", () => {
+    saveAdminToken("");
+    alert("Admin logged out.");
+  });
+
+  adminLoginForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const token = (adminTokenInput?.value || "").trim();
+    if (!token) {
+      setLoginError("Please enter admin token.");
+      return;
+    }
+    try {
+      await verifyAdminToken(token);
+      saveAdminToken(token);
+      adminLoginDialog.close();
+      alert("Admin login successful.");
+    } catch (err) {
+      setLoginError(err?.message || "Login failed.");
+    }
+  });
+
   window.addEventListener("hashchange", renderCurrentRoute);
+  initAdminToken();
   loadDataset();
 })();

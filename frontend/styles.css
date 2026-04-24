@@ -42,6 +42,13 @@ body {
   text-align: right;
 }
 
+.action-row {
+  display: flex;
+  gap: 0.4rem;
+  justify-content: flex-end;
+  margin-top: 0.35rem;
+}
+
 .meta {
   color: var(--muted);
   font-size: 0.9rem;
@@ -55,6 +62,47 @@ body {
   padding: 0.5rem 0.8rem;
   border-radius: 0.45rem;
   cursor: pointer;
+}
+
+.btn.secondary {
+  background: white;
+  color: var(--accent);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.select {
+  border: 1px solid var(--border);
+  background: white;
+  padding: 0.45rem 0.55rem;
+  border-radius: 0.45rem;
+}
+
+.admin-controls {
+  margin-top: 0.4rem;
+  padding: 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: #fff;
+}
+
+.admin-dialog {
+  width: min(420px, 94vw);
+  border: 1px solid var(--border);
+  border-radius: 0.8rem;
+}
+
+.admin-form {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.input {
+  border: 1px solid var(--border);
+  border-radius: 0.45rem;
+  padding: 0.5rem 0.6rem;
 }
 
 .breadcrumbs {
@@ -222,8 +270,12 @@ body {
     text-align: left;
   }
 
+  .action-row {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
   .detail-layout {
     grid-template-columns: 1fr;
   }
 }
-
