@@ -83,10 +83,23 @@ jobs:
           };
           EOF
 
-      - name: Upload frontend to S3 (optional)
-        if: ${{ vars.FRONTEND_BUCKET != '' }}
-        run: |
-          aws s3 sync frontend "s3://${{ vars.FRONTEND_BUCKET }}" \
-            --delete \
-            --exclude "dataset.json"
+      - name: Setup SSH key for EC2 deploy
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
 
+      - name: Add EC2 to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H "${{ vars.EC2_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Ensure frontend deploy directory exists
+        run: |
+          ssh "${{ vars.EC2_SSH_USER }}@${{ vars.EC2_HOST }}" \
+            "mkdir -p '${{ vars.EC2_FRONTEND_PATH }}'"
+
+      - name: Upload frontend to EC2 path
+        run: |
+          rsync -az --delete \
+            --exclude "dataset.json" \
+            frontend/ "${{ vars.EC2_SSH_USER }}@${{ vars.EC2_HOST }}:${{ vars.EC2_FRONTEND_PATH }}/"

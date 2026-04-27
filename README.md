@@ -222,7 +222,12 @@ Set these in **Settings -> Secrets and variables -> Actions -> Variables**:
 - `ADMIN_LAMBDA_NAME`
 - `FRONTEND_DATASET_URL` (public URL to your dataset JSON)
 - `ADMIN_API_URL` (public URL to your `/admin` endpoint)
-- `FRONTEND_BUCKET` (optional; if empty, frontend upload step is skipped)
+- `EC2_HOST` (example: `museum.ghoreishi.dev` or server IP)
+- `EC2_SSH_USER` (example: `ubuntu`)
+- `EC2_FRONTEND_PATH` (example: `/home/ubuntu/museum.ghoreishi.dev`)
+
+Set this in **Settings -> Secrets and variables -> Actions -> Secrets**:
+- `EC2_SSH_PRIVATE_KEY` (private key matching a public key in `/home/ubuntu/.ssh/authorized_keys`)
 
 ### Deploy behavior
 
@@ -231,7 +236,7 @@ On push to `main`:
 2. Build Lambda bundle
 3. Update ingestion/admin Lambda code
 4. Render frontend `config.js` from workflow variables
-5. Sync frontend to S3 (if `FRONTEND_BUCKET` is set)
+5. Upload frontend files to EC2 path via SSH + rsync
 
 Recommended:
 - protect `main` branch and require the `CI` workflow to pass before merge
