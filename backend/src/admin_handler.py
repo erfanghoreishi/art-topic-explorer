@@ -24,7 +24,12 @@ SCHEDULE_PRESETS: Dict[str, str] = {
 def _response(status_code: int, body: JsonDict) -> JsonDict:
     return {
         "statusCode": status_code,
-        "headers": {"Content-Type": "application/json"},
+        "headers": {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "https://museum.ghoreishi.dev",
+            "Access-Control-Allow-Headers": "Content-Type,x-admin-token",
+            "Access-Control-Allow-Methods": "OPTIONS,POST",
+        },
         "body": json.dumps(body, ensure_ascii=True),
     }
 
