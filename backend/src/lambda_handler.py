@@ -45,6 +45,8 @@ def _success_payload(result: PipelineResult, trigger_event: Optional[JsonDict]) 
         "rawRecordsCount": result.raw_records_count,
         "normalizedRecordsCount": result.normalized_records_count,
         "mergedRecordsCount": result.merged_records_count,
+        "startPage": result.start_page,
+        "pagesRequested": result.pages_requested,
         "rawS3Uri": result.raw_s3_uri,
         "datasetS3Uri": result.dataset_s3_uri,
     }
@@ -76,4 +78,3 @@ def handler(event: Optional[JsonDict], context: Any) -> JsonDict:
         payload = _failure_payload(exc, event)
         _publish_status(payload)
         raise
-

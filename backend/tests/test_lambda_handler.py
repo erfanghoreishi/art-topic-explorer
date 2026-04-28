@@ -29,6 +29,8 @@ def test_handler_success_publishes_sns_when_topic_configured(monkeypatch):
             raw_records_count=8,
             normalized_records_count=6,
             merged_records_count=10,
+            start_page=1,
+            pages_requested=2,
             raw_s3_uri="s3://raw/raw.jsonl",
             dataset_s3_uri="s3://curated/dataset.json",
         ),
@@ -51,6 +53,8 @@ def test_handler_success_skips_sns_when_no_topic(monkeypatch):
             raw_records_count=1,
             normalized_records_count=1,
             merged_records_count=1,
+            start_page=1,
+            pages_requested=1,
             raw_s3_uri="s3://raw/raw.jsonl",
             dataset_s3_uri="s3://curated/dataset.json",
         ),
@@ -76,4 +80,3 @@ def test_handler_failure_publishes_and_raises(monkeypatch):
     assert len(fake_sns.published) == 1
     assert fake_sns.published[0]["Message"]["status"] == "error"
     assert "pipeline failed" in fake_sns.published[0]["Message"]["errorMessage"]
-

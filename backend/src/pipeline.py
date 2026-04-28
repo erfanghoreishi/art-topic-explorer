@@ -23,6 +23,8 @@ class PipelineResult:
     raw_records_count: int
     normalized_records_count: int
     merged_records_count: int
+    start_page: int
+    pages_requested: int
     raw_s3_uri: str
     dataset_s3_uri: str
 
@@ -68,6 +70,37 @@ def _read_existing_dataset(s3_client) -> Optional[JsonDict]:
     return json.loads(body)
 
 
+def _read_ingestion_state(s3_client) -> JsonDict:
+    bucket = _require_bucket("CURATED_BUCKET", config.CURATED_BUCKET)
+    key = config.INGESTION_STATE_KEY
+    try:
+        response = s3_client.get_object(Bucket=bucket, Key=key)
+    except ClientError as exc:
+        error_code = str(exc.response.get("Error", {}).get("Code", ""))
+        if error_code in {"NoSuchKey", "404"}:
+            return {}
+        raise
+
+    body = response["Body"].read()
+    if isinstance(body, bytes):
+        body = body.decode("utf-8")
+    if not body:
+        return {}
+    return json.loads(body)
+
+
+def _write_ingestion_state(s3_client, state: JsonDict) -> None:
+    bucket = _require_bucket("CURATED_BUCKET", config.CURATED_BUCKET)
+    key = config.INGESTION_STATE_KEY
+    payload = json.dumps(state, ensure_ascii=True, indent=2)
+    s3_client.put_object(
+        Bucket=bucket,
+        Key=key,
+        Body=payload.encode("utf-8"),
+        ContentType="application/json",
+    )
+
+
 def _write_raw_jsonl(s3_client, raw_records: List[JsonDict]) -> str:
     bucket = _require_bucket("RAW_BUCKET", config.RAW_BUCKET)
     key = config.RAW_KEY
@@ -105,10 +138,14 @@ def run_ingestion_pipeline(s3_client=None) -> PipelineResult:
     """
     client = s3_client or _s3_client()
 
+    state = _read_ingestion_state(client)
+    start_page = int(state.get("nextStartPage", config.INGESTION_START_PAGE) or config.INGESTION_START_PAGE)
+    max_pages = max(config.HARVARD_MAX_PAGES, 1)
+
     raw_records: List[JsonDict] = []
     normalized_records: List[JsonDict] = []
 
-    for record in iter_object_records():
+    for record in iter_object_records(start_page=start_page, max_pages=max_pages):
         raw_records.append(record)
         normalized = normalize_object_record(record)
         if normalized is not None:
@@ -124,6 +161,15 @@ def run_ingestion_pipeline(s3_client=None) -> PipelineResult:
 
     raw_uri = _write_raw_jsonl(client, raw_records)
     dataset_uri = _write_dataset_json(client, final_dataset)
+    _write_ingestion_state(
+        client,
+        {
+            "nextStartPage": start_page + max_pages,
+            "lastStartPage": start_page,
+            "lastPagesRequested": max_pages,
+            "lastRawRecordsCount": len(raw_records),
+        },
+    )
 
     merged_count = sum(
         len(subtopic.get("items", []))
@@ -135,7 +181,8 @@ def run_ingestion_pipeline(s3_client=None) -> PipelineResult:
         raw_records_count=len(raw_records),
         normalized_records_count=len(normalized_records),
         merged_records_count=merged_count,
+        start_page=start_page,
+        pages_requested=max_pages,
         raw_s3_uri=raw_uri,
         dataset_s3_uri=dataset_uri,
     )
-

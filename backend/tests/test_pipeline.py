@@ -21,9 +21,17 @@ class FakeBody:
 class FakeS3Client:
     def __init__(self, existing_dataset: Dict[str, Any] | None = None) -> None:
         self.existing_dataset = existing_dataset
+        self.ingestion_state: Dict[str, Any] | None = None
         self.puts: List[Tuple[str, str, bytes, str]] = []
 
     def get_object(self, Bucket: str, Key: str):
+        if Key.endswith("ingestion_state.json"):
+            if self.ingestion_state is None:
+                raise ClientError(
+                    {"Error": {"Code": "NoSuchKey", "Message": "not found"}},
+                    "GetObject",
+                )
+            return {"Body": FakeBody(json.dumps(self.ingestion_state))}
         if self.existing_dataset is None:
             raise ClientError(
                 {"Error": {"Code": "NoSuchKey", "Message": "not found"}},
@@ -71,7 +79,11 @@ def test_pipeline_writes_raw_and_dataset_without_existing(monkeypatch):
             "imagepermissionlevel": 0,
         },
     ]
-    monkeypatch.setattr(pipeline, "iter_object_records", lambda: iter(mock_records))
+    monkeypatch.setattr(
+        pipeline,
+        "iter_object_records",
+        lambda start_page=1, max_pages=None: iter(mock_records),
+    )
 
     fake_s3 = FakeS3Client(existing_dataset=None)
     result = pipeline.run_ingestion_pipeline(s3_client=fake_s3)
@@ -80,7 +92,7 @@ def test_pipeline_writes_raw_and_dataset_without_existing(monkeypatch):
     assert result.normalized_records_count == 2
     assert result.raw_s3_uri == "s3://raw-bucket/raw/objects.jsonl"
     assert result.dataset_s3_uri == "s3://curated-bucket/datasets/topic_tree.json"
-    assert len(fake_s3.puts) == 2
+    assert len(fake_s3.puts) == 3
 
     raw_put = fake_s3.puts[0]
     assert raw_put[0] == "raw-bucket"
@@ -91,6 +103,8 @@ def test_pipeline_writes_raw_and_dataset_without_existing(monkeypatch):
     dataset_put = fake_s3.puts[1]
     dataset_json = json.loads(dataset_put[2].decode("utf-8"))
     assert _topic_item_ids(dataset_json) == [1, 2]
+    state_put = fake_s3.puts[2]
+    assert state_put[1].endswith("ingestion_state.json")
 
 
 def test_pipeline_append_mode_merges_existing(monkeypatch):
@@ -129,7 +143,11 @@ def test_pipeline_append_mode_merges_existing(monkeypatch):
             "imagepermissionlevel": 0,
         }
     ]
-    monkeypatch.setattr(pipeline, "iter_object_records", lambda: iter(incoming_records))
+    monkeypatch.setattr(
+        pipeline,
+        "iter_object_records",
+        lambda start_page=1, max_pages=None: iter(incoming_records),
+    )
 
     fake_s3 = FakeS3Client(existing_dataset=existing)
     result = pipeline.run_ingestion_pipeline(s3_client=fake_s3)
@@ -143,9 +161,34 @@ def test_pipeline_append_mode_merges_existing(monkeypatch):
 def test_pipeline_requires_bucket_config(monkeypatch):
     monkeypatch.setattr(pipeline.config, "RAW_BUCKET", "")
     monkeypatch.setattr(pipeline.config, "CURATED_BUCKET", "curated-bucket")
-    monkeypatch.setattr(pipeline, "iter_object_records", lambda: iter([]))
+    monkeypatch.setattr(
+        pipeline,
+        "iter_object_records",
+        lambda start_page=1, max_pages=None: iter([]),
+    )
 
     fake_s3 = FakeS3Client(existing_dataset=None)
     with pytest.raises(ValueError):
         pipeline.run_ingestion_pipeline(s3_client=fake_s3)
 
+
+def test_pipeline_uses_saved_next_start_page(monkeypatch):
+    monkeypatch.setattr(pipeline.config, "RAW_BUCKET", "raw-bucket")
+    monkeypatch.setattr(pipeline.config, "CURATED_BUCKET", "curated-bucket")
+    monkeypatch.setattr(pipeline.config, "HARVARD_MAX_PAGES", 1)
+
+    seen = {}
+
+    def _iter(start_page=1, max_pages=None):
+        seen["start_page"] = start_page
+        seen["max_pages"] = max_pages
+        return iter([])
+
+    monkeypatch.setattr(pipeline, "iter_object_records", _iter)
+
+    fake_s3 = FakeS3Client(existing_dataset=None)
+    fake_s3.ingestion_state = {"nextStartPage": 42}
+    pipeline.run_ingestion_pipeline(s3_client=fake_s3)
+
+    assert seen["start_page"] == 42
+    assert seen["max_pages"] == 1
