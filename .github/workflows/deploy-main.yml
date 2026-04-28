@@ -69,7 +69,6 @@ jobs:
             "Variables": {
               "HARVARD_ART_API_KEY": "${{ secrets.HARVARD_ART_API_KEY }}",
               "HARVARD_API_BASE_URL": "${{ vars.HARVARD_API_BASE_URL }}",
-              "AWS_REGION": "${{ vars.AWS_REGION }}",
               "HARVARD_PAGE_SIZE": "${{ vars.HARVARD_PAGE_SIZE }}",
               "HARVARD_MAX_PAGES": "${{ vars.HARVARD_MAX_PAGES }}",
               "TOP_CLASSIFICATION_LIMIT": "${{ vars.TOP_CLASSIFICATION_LIMIT }}",
@@ -96,7 +95,6 @@ jobs:
           cat > admin-env.json <<EOF
           {
             "Variables": {
-              "AWS_REGION": "${{ vars.AWS_REGION }}",
               "ADMIN_TOKEN": "${{ secrets.ADMIN_TOKEN }}",
               "EVENTBRIDGE_RULE_NAME": "${{ vars.EVENTBRIDGE_RULE_NAME }}",
               "INGESTION_LAMBDA_NAME": "${{ vars.INGESTION_LAMBDA_NAME }}",
