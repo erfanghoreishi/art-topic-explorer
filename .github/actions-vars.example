@@ -1,0 +1,36 @@
+# GitHub Actions repository VARIABLES template
+# Path: Settings -> Secrets and variables -> Actions -> Variables
+
+AWS_ROLE_ARN=arn:aws:iam::877485452489:role/github-actions-deploy-role
+AWS_REGION=eu-west-2
+
+INGESTION_LAMBDA_NAME=ham-topic-explorer-ingestion
+ADMIN_LAMBDA_NAME=ham-topic-explorer-admin
+
+HARVARD_API_BASE_URL=https://api.harvardartmuseums.org
+HARVARD_PAGE_SIZE=100
+HARVARD_MAX_PAGES=20
+TOP_CLASSIFICATION_LIMIT=12
+MAX_ITEMS_PER_ERA=24
+INCLUDE_UNKNOWN_ERA=true
+APPEND_MODE=true
+DEDUPE_BY_ID=true
+
+RAW_BUCKET=ham-topic-explorer-raw-877485452489-eu-west-2-an
+CURATED_BUCKET=ham-topic-explorer-curated-877485452489-eu-west-2-an
+RAW_KEY=raw/objects.jsonl
+DATASET_KEY=datasets/topic_tree.json
+SNS_TOPIC_ARN=
+DATASET_FRESHNESS_MAX_HOURS=26
+
+EVENTBRIDGE_RULE_NAME=ham-topic-explorer-refresh
+ADMIN_REFRESH_COOLDOWN_SECONDS=300
+ADMIN_STATE_KEY=admin/refresh_state.json
+
+FRONTEND_DATASET_URL=https://ham-topic-explorer-curated-877485452489-eu-west-2-an.s3.eu-west-2.amazonaws.com/datasets/topic_tree.json
+ADMIN_API_URL=https://q8fhj5i6oi.execute-api.eu-west-2.amazonaws.com/main/admin
+
+EC2_HOST=museum.ghoreishi.dev
+EC2_SSH_USER=ubuntu
+EC2_FRONTEND_PATH=/home/ubuntu/museum.ghoreishi.dev
+

@@ -215,28 +215,52 @@ This repo now includes:
 
 ### Required GitHub repository variables
 
+Quick templates:
+- `.github/actions-vars.example`
+- `.github/actions-secrets.example`
+
 Set these in **Settings -> Secrets and variables -> Actions -> Variables**:
 - `AWS_ROLE_ARN` (OIDC role to assume)
 - `AWS_REGION` (example: `eu-west-2`)
 - `INGESTION_LAMBDA_NAME`
 - `ADMIN_LAMBDA_NAME`
+- `HARVARD_API_BASE_URL` (`https://api.harvardartmuseums.org`)
+- `HARVARD_PAGE_SIZE` (example: `100`)
+- `HARVARD_MAX_PAGES` (example: `20`)
+- `TOP_CLASSIFICATION_LIMIT` (example: `12`)
+- `MAX_ITEMS_PER_ERA` (example: `24`)
+- `INCLUDE_UNKNOWN_ERA` (`true` / `false`)
+- `APPEND_MODE` (`true` / `false`)
+- `DEDUPE_BY_ID` (`true` / `false`)
+- `RAW_BUCKET`
+- `CURATED_BUCKET`
+- `RAW_KEY` (example: `raw/objects.jsonl`)
+- `DATASET_KEY` (example: `datasets/topic_tree.json`)
+- `SNS_TOPIC_ARN` (optional; can be empty)
+- `DATASET_FRESHNESS_MAX_HOURS` (example: `26`)
+- `EVENTBRIDGE_RULE_NAME` (example: `ham-topic-explorer-refresh`)
+- `ADMIN_REFRESH_COOLDOWN_SECONDS` (example: `300`)
+- `ADMIN_STATE_KEY` (example: `admin/refresh_state.json`)
 - `FRONTEND_DATASET_URL` (public URL to your dataset JSON)
 - `ADMIN_API_URL` (public URL to your `/admin` endpoint)
 - `EC2_HOST` (example: `museum.ghoreishi.dev` or server IP)
 - `EC2_SSH_USER` (example: `ubuntu`)
 - `EC2_FRONTEND_PATH` (example: `/home/ubuntu/museum.ghoreishi.dev`)
 
-Set this in **Settings -> Secrets and variables -> Actions -> Secrets**:
+Set these in **Settings -> Secrets and variables -> Actions -> Secrets**:
 - `EC2_SSH_PRIVATE_KEY` (private key matching a public key in `/home/ubuntu/.ssh/authorized_keys`)
+- `HARVARD_ART_API_KEY`
+- `ADMIN_TOKEN`
 
 ### Deploy behavior
 
 On push to `main`:
 1. Run tests and syntax checks
 2. Build Lambda bundle
-3. Update ingestion/admin Lambda code
-4. Render frontend `config.js` from workflow variables
-5. Upload frontend files to EC2 path via SSH + rsync
+3. Update ingestion/admin Lambda environment variables from GitHub vars/secrets
+4. Update ingestion/admin Lambda code
+5. Render frontend `config.js` from workflow variables
+6. Upload frontend files to EC2 path via SSH + rsync
 
 Recommended:
 - protect `main` branch and require the `CI` workflow to pass before merge

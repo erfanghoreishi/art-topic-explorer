@@ -62,6 +62,54 @@ jobs:
           role-to-assume: ${{ vars.AWS_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION }}
 
+      - name: Update ingestion lambda environment variables
+        run: |
+          cat > ingestion-env.json <<EOF
+          {
+            "Variables": {
+              "HARVARD_ART_API_KEY": "${{ secrets.HARVARD_ART_API_KEY }}",
+              "HARVARD_API_BASE_URL": "${{ vars.HARVARD_API_BASE_URL }}",
+              "AWS_REGION": "${{ vars.AWS_REGION }}",
+              "HARVARD_PAGE_SIZE": "${{ vars.HARVARD_PAGE_SIZE }}",
+              "HARVARD_MAX_PAGES": "${{ vars.HARVARD_MAX_PAGES }}",
+              "TOP_CLASSIFICATION_LIMIT": "${{ vars.TOP_CLASSIFICATION_LIMIT }}",
+              "MAX_ITEMS_PER_ERA": "${{ vars.MAX_ITEMS_PER_ERA }}",
+              "INCLUDE_UNKNOWN_ERA": "${{ vars.INCLUDE_UNKNOWN_ERA }}",
+              "APPEND_MODE": "${{ vars.APPEND_MODE }}",
+              "DEDUPE_BY_ID": "${{ vars.DEDUPE_BY_ID }}",
+              "RAW_BUCKET": "${{ vars.RAW_BUCKET }}",
+              "CURATED_BUCKET": "${{ vars.CURATED_BUCKET }}",
+              "RAW_KEY": "${{ vars.RAW_KEY }}",
+              "DATASET_KEY": "${{ vars.DATASET_KEY }}",
+              "SNS_TOPIC_ARN": "${{ vars.SNS_TOPIC_ARN }}",
+              "LAMBDA_FUNCTION_NAME": "${{ vars.INGESTION_LAMBDA_NAME }}",
+              "DATASET_FRESHNESS_MAX_HOURS": "${{ vars.DATASET_FRESHNESS_MAX_HOURS }}"
+            }
+          }
+          EOF
+          aws lambda update-function-configuration \
+            --function-name "${{ vars.INGESTION_LAMBDA_NAME }}" \
+            --environment file://ingestion-env.json
+
+      - name: Update admin lambda environment variables
+        run: |
+          cat > admin-env.json <<EOF
+          {
+            "Variables": {
+              "AWS_REGION": "${{ vars.AWS_REGION }}",
+              "ADMIN_TOKEN": "${{ secrets.ADMIN_TOKEN }}",
+              "EVENTBRIDGE_RULE_NAME": "${{ vars.EVENTBRIDGE_RULE_NAME }}",
+              "INGESTION_LAMBDA_NAME": "${{ vars.INGESTION_LAMBDA_NAME }}",
+              "CURATED_BUCKET": "${{ vars.CURATED_BUCKET }}",
+              "ADMIN_REFRESH_COOLDOWN_SECONDS": "${{ vars.ADMIN_REFRESH_COOLDOWN_SECONDS }}",
+              "ADMIN_STATE_KEY": "${{ vars.ADMIN_STATE_KEY }}"
+            }
+          }
+          EOF
+          aws lambda update-function-configuration \
+            --function-name "${{ vars.ADMIN_LAMBDA_NAME }}" \
+            --environment file://admin-env.json
+
       - name: Deploy ingestion lambda
         run: |
           aws lambda update-function-code \
