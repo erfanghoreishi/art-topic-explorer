@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Frontend static server",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd /Users/erfan/Desktop/Learning/dev/art_knowledge_explorer/.claude/worktrees/jovial-dijkstra-8d59d1 && python3 -m http.server 8080"],
+      "port": 8080
+    },
+    {
+      "name": "Local demo pipeline",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "backend.src.local_demo", "--max-pages", "5"],
+      "port": null
+    }
+  ]
+}
