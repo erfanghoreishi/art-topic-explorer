@@ -25,6 +25,24 @@ while IFS='=' read -r key value || [[ -n "$key" ]]; do
 
   echo "  setting $key"
   gh variable set "$key" --body "$value"
+
+  # Track whether ingestion-batching vars changed.
+  if [[ "$key" == "HARVARD_PAGE_SIZE" || "$key" == "HARVARD_MAX_PAGES" ]]; then
+    BATCH_CHANGED=1
+  fi
 done < "$FILE"
 
 echo "Done."
+
+if [[ "${BATCH_CHANGED:-0}" -eq 1 ]]; then
+  cat <<'WARN'
+
+⚠️  HARVARD_PAGE_SIZE or HARVARD_MAX_PAGES was synced.
+    The S3 cursor (admin/ingestion_state.json) is in Harvard pagination units —
+    if you changed page size, "page N" now points at a different chunk of records.
+    Reset the cursor before the next ingestion run:
+
+        ./scripts/reset-ingestion-cursor.sh
+
+WARN
+fi

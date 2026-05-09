@@ -12,11 +12,11 @@ INGESTION_LAMBDA_NAME=ham-topic-explorer-ingestion
 ADMIN_LAMBDA_NAME=ham-topic-explorer-admin
 
 HARVARD_API_BASE_URL=https://api.harvardartmuseums.org
-HARVARD_PAGE_SIZE=5
+HARVARD_PAGE_SIZE=3
 HARVARD_MAX_PAGES=1
 INGESTION_START_PAGE=1
-TOP_CLASSIFICATION_LIMIT=12
-MAX_ITEMS_PER_ERA=6
+TOP_CLASSIFICATION_LIMIT=400
+MAX_ITEMS_PER_ERA=48
 INCLUDE_UNKNOWN_ERA=true
 APPEND_MODE=true
 DEDUPE_BY_ID=true
@@ -27,10 +27,10 @@ RAW_KEY=raw/objects.jsonl
 DATASET_KEY=datasets/topic_tree.json
 TOPICS_INDEX_KEY=datasets/topics_index.json
 TOPICS_PAGE_PREFIX=datasets/topics/page_
-TOPICS_PAGE_SIZE=6
-TOPICS_MAX_PAGES=10
+TOPICS_PAGE_SIZE=24
+TOPICS_MAX_PAGES=20
 INGESTION_STATE_KEY=admin/ingestion_state.json
-SNS_TOPIC_ARN=
+SNS_TOPIC_ARN=arn:aws:sns:eu-west-2:877485452489:my-deploy-notifications
 DATASET_FRESHNESS_MAX_HOURS=26
 
 EVENTBRIDGE_RULE_NAME=ham-topic-explorer-refresh
@@ -42,6 +42,6 @@ FRONTEND_TOPICS_INDEX_URL=https://ham-topic-explorer-curated-877485452489-eu-wes
 FRONTEND_TOPICS_PAGE_URL_TEMPLATE=https://ham-topic-explorer-curated-877485452489-eu-west-2-an.s3.eu-west-2.amazonaws.com/datasets/topics/page_{page}.json
 ADMIN_API_URL=https://q8fhj5i6oi.execute-api.eu-west-2.amazonaws.com/main/admin
 
-EC2_HOST=museum.ghoreishi.dev
+EC2_HOST=3.8.78.118
 EC2_SSH_USER=ubuntu
 EC2_FRONTEND_PATH=/home/ubuntu/museum.ghoreishi.dev
