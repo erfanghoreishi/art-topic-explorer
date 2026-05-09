@@ -31,3 +31,42 @@ def test_config_invalid_int_raises(monkeypatch):
         assert "HARVARD_PAGE_SIZE" in str(exc)
     assert raised
 
+
+
+def test_config_topic_pagination_defaults(monkeypatch):
+    for var in ("TOPICS_INDEX_KEY", "TOPICS_PAGE_PREFIX", "TOPICS_PAGE_SIZE", "TOPICS_MAX_PAGES"):
+        monkeypatch.delenv(var, raising=False)
+
+    import backend.src.config as config
+
+    reloaded = importlib.reload(config)
+    assert reloaded.TOPICS_INDEX_KEY == "datasets/topics_index.json"
+    assert reloaded.TOPICS_PAGE_PREFIX == "datasets/topics/page_"
+    assert reloaded.TOPICS_PAGE_SIZE == 3
+    assert reloaded.TOPICS_MAX_PAGES == 20
+
+
+def test_config_topic_pagination_overrides(monkeypatch):
+    monkeypatch.setenv("TOPICS_PAGE_SIZE", "6")
+    monkeypatch.setenv("TOPICS_MAX_PAGES", "10")
+    monkeypatch.setenv("TOPICS_INDEX_KEY", "custom/index.json")
+    monkeypatch.setenv("TOPICS_PAGE_PREFIX", "custom/p_")
+
+    import backend.src.config as config
+
+    reloaded = importlib.reload(config)
+    assert reloaded.TOPICS_PAGE_SIZE == 6
+    assert reloaded.TOPICS_MAX_PAGES == 10
+    assert reloaded.TOPICS_INDEX_KEY == "custom/index.json"
+    assert reloaded.TOPICS_PAGE_PREFIX == "custom/p_"
+
+
+def test_config_topic_pagination_clamps_to_one(monkeypatch):
+    monkeypatch.setenv("TOPICS_PAGE_SIZE", "0")
+    monkeypatch.setenv("TOPICS_MAX_PAGES", "-5")
+
+    import backend.src.config as config
+
+    reloaded = importlib.reload(config)
+    assert reloaded.TOPICS_PAGE_SIZE == 1
+    assert reloaded.TOPICS_MAX_PAGES == 1

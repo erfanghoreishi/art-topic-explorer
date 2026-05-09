@@ -279,3 +279,42 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 24px 0 8px;
+  align-items: center;
+  justify-content: center;
+}
+.page-btn {
+  display: inline-block;
+  min-width: 36px;
+  padding: 6px 10px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-decoration: none;
+  color: inherit;
+  background: #fff;
+}
+.page-btn:hover {
+  background: #f3f3f3;
+}
+.page-btn.current {
+  background: #222;
+  color: #fff;
+  border-color: #222;
+}
+.page-btn.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+}

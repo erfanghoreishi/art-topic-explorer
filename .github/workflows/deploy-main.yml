@@ -46,6 +46,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Reminder — sync GitHub vars before deploying
+        run: |
+          echo "::warning title=Sync GitHub Actions variables::If you edited .github/actions-vars.example, run ./scripts/sync-github-vars.sh locally BEFORE pushing. GitHub Actions reads vars at the start of the run, so unsynced changes won't take effect this deploy."
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -81,6 +85,10 @@ jobs:
               "CURATED_BUCKET": "${{ vars.CURATED_BUCKET }}",
               "RAW_KEY": "${{ vars.RAW_KEY }}",
               "DATASET_KEY": "${{ vars.DATASET_KEY }}",
+              "TOPICS_INDEX_KEY": "${{ vars.TOPICS_INDEX_KEY }}",
+              "TOPICS_PAGE_PREFIX": "${{ vars.TOPICS_PAGE_PREFIX }}",
+              "TOPICS_PAGE_SIZE": "${{ vars.TOPICS_PAGE_SIZE }}",
+              "TOPICS_MAX_PAGES": "${{ vars.TOPICS_MAX_PAGES }}",
               "INGESTION_STATE_KEY": "${{ vars.INGESTION_STATE_KEY }}",
               "SNS_TOPIC_ARN": "${{ vars.SNS_TOPIC_ARN }}",
               "LAMBDA_FUNCTION_NAME": "${{ vars.INGESTION_LAMBDA_NAME }}",
@@ -127,6 +135,8 @@ jobs:
           cat > frontend/config.js <<EOF
           window.APP_CONFIG = {
             datasetUrl: "${{ vars.FRONTEND_DATASET_URL }}",
+            topicsIndexUrl: "${{ vars.FRONTEND_TOPICS_INDEX_URL }}",
+            topicsPageUrlTemplate: "${{ vars.FRONTEND_TOPICS_PAGE_URL_TEMPLATE }}",
             adminApiUrl: "${{ vars.ADMIN_API_URL }}"
           };
           EOF

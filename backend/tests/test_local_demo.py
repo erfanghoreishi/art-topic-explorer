@@ -38,8 +38,18 @@ def test_run_local_demo_dataset_writes_output(monkeypatch, tmp_path: Path):
     assert result["normalizedRecordsCount"] == 2
     assert result["topicsCount"] >= 1
 
-    output_file = Path(result["outputPath"])
+    output_file = Path(result["datasetPath"])
     assert output_file.exists()
     loaded = json.loads(output_file.read_text(encoding="utf-8"))
     assert "topics" in loaded
+
+    index_file = Path(result["topicsIndexPath"])
+    assert index_file.exists()
+    index_payload = json.loads(index_file.read_text(encoding="utf-8"))
+    assert index_payload["totalTopics"] == loaded["topics"].__len__()
+    assert result["topicsPagesCount"] == index_payload["lastPage"]
+
+    for n in range(1, result["topicsPagesCount"] + 1):
+        page_file = output_file.parent / "topics" / f"page_{n}.json"
+        assert page_file.exists()
 

@@ -10,7 +10,7 @@ import boto3
 from botocore.exceptions import ClientError
 
 from . import config
-from .grouping import build_topic_tree, merge_datasets
+from .grouping import build_paginated_views, build_topic_tree, merge_datasets
 from .harvard_object_fetcher import iter_object_records
 from .normalizer import normalize_object_record
 
@@ -27,6 +27,8 @@ class PipelineResult:
     pages_requested: int
     raw_s3_uri: str
     dataset_s3_uri: str
+    topics_index_s3_uri: str = ""
+    topic_pages_count: int = 0
 
 
 def _s3_client():
@@ -127,6 +129,81 @@ def _write_dataset_json(s3_client, dataset: JsonDict) -> str:
     return f"s3://{bucket}/{key}"
 
 
+def _topic_page_key(page_num: int) -> str:
+    return f"{config.TOPICS_PAGE_PREFIX}{page_num}.json"
+
+
+def _read_topics_index(s3_client) -> Optional[JsonDict]:
+    bucket = _require_bucket("CURATED_BUCKET", config.CURATED_BUCKET)
+    try:
+        response = s3_client.get_object(Bucket=bucket, Key=config.TOPICS_INDEX_KEY)
+    except ClientError as exc:
+        error_code = str(exc.response.get("Error", {}).get("Code", ""))
+        if error_code in {"NoSuchKey", "404"}:
+            return None
+        raise
+    body = response["Body"].read()
+    if isinstance(body, bytes):
+        body = body.decode("utf-8")
+    if not body:
+        return None
+    return json.loads(body)
+
+
+def _write_topic_page(s3_client, page_num: int, payload: JsonDict) -> str:
+    bucket = _require_bucket("CURATED_BUCKET", config.CURATED_BUCKET)
+    key = _topic_page_key(page_num)
+    body = json.dumps(payload, ensure_ascii=True, indent=2)
+    s3_client.put_object(
+        Bucket=bucket,
+        Key=key,
+        Body=body.encode("utf-8"),
+        ContentType="application/json",
+    )
+    return f"s3://{bucket}/{key}"
+
+
+def _write_topics_index(s3_client, payload: JsonDict) -> str:
+    bucket = _require_bucket("CURATED_BUCKET", config.CURATED_BUCKET)
+    key = config.TOPICS_INDEX_KEY
+    body = json.dumps(payload, ensure_ascii=True, indent=2)
+    s3_client.put_object(
+        Bucket=bucket,
+        Key=key,
+        Body=body.encode("utf-8"),
+        ContentType="application/json",
+    )
+    return f"s3://{bucket}/{key}"
+
+
+def _delete_stale_pages(s3_client, old_last_page: int, new_last_page: int) -> None:
+    if old_last_page <= new_last_page:
+        return
+    bucket = _require_bucket("CURATED_BUCKET", config.CURATED_BUCKET)
+    for page_num in range(new_last_page + 1, old_last_page + 1):
+        try:
+            s3_client.delete_object(Bucket=bucket, Key=_topic_page_key(page_num))
+        except ClientError:
+            # Best-effort cleanup; do not abort publish on a stale-delete failure.
+            pass
+
+
+def _publish_paginated_topics(s3_client, dataset: JsonDict) -> tuple[str, int]:
+    """Write page files first, then the index. Cleans up stale page files when shrinking."""
+    pages, index = build_paginated_views(
+        dataset, config.TOPICS_PAGE_SIZE, config.TOPICS_MAX_PAGES
+    )
+    prior_index = _read_topics_index(s3_client)
+    prior_last_page = int((prior_index or {}).get("lastPage", 0) or 0)
+
+    for page_payload in pages:
+        _write_topic_page(s3_client, page_payload["page"], page_payload)
+
+    _delete_stale_pages(s3_client, prior_last_page, index["lastPage"])
+    index_uri = _write_topics_index(s3_client, index)
+    return index_uri, len(pages)
+
+
 def run_ingestion_pipeline(s3_client=None) -> PipelineResult:
     """
     Run one ingestion cycle:
@@ -161,6 +238,7 @@ def run_ingestion_pipeline(s3_client=None) -> PipelineResult:
 
     raw_uri = _write_raw_jsonl(client, raw_records)
     dataset_uri = _write_dataset_json(client, final_dataset)
+    topics_index_uri, topic_pages_count = _publish_paginated_topics(client, final_dataset)
     _write_ingestion_state(
         client,
         {
@@ -185,4 +263,6 @@ def run_ingestion_pipeline(s3_client=None) -> PipelineResult:
         pages_requested=max_pages,
         raw_s3_uri=raw_uri,
         dataset_s3_uri=dataset_uri,
+        topics_index_s3_uri=topics_index_uri,
+        topic_pages_count=topic_pages_count,
     )

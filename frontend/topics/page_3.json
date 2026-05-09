@@ -1,0 +1,106 @@
+{
+  "page": 3,
+  "pageSize": 3,
+  "totalTopics": 9,
+  "lastPage": 3,
+  "topics": [
+    {
+      "id": "classification:Fragments",
+      "name": "Fragments",
+      "count": 1,
+      "subtopics": [
+        {
+          "id": "era:20th century",
+          "name": "20th century",
+          "eraSource": "century",
+          "count": 1,
+          "items": [
+            {
+              "id": 332577,
+              "title": "Painted canvas fragment",
+              "classification": "Fragments",
+              "era": "20th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "20th century",
+              "dated": "20th century",
+              "culture": "American",
+              "medium": null,
+              "people": [
+                "Barnett Newman"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:STR018995",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/332577",
+              "lastUpdate": "2026-05-09T04:39:27-04:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "classification:Mirrors",
+      "name": "Mirrors",
+      "count": 1,
+      "subtopics": [
+        {
+          "id": "era:Tang dynasty, 618-907",
+          "name": "Tang dynasty, 618-907",
+          "eraSource": "period",
+          "count": 1,
+          "items": [
+            {
+              "id": 209837,
+              "title": "Small Octofoil Mirror with Relief Decoration of Two Immortals, One Riding a Horse, the Other a Lion, Between Stylized Mountains",
+              "classification": "Mirrors",
+              "era": "Tang dynasty, 618-907",
+              "eraSource": "period",
+              "period": "Tang dynasty, 618-907",
+              "century": "8th century",
+              "dated": "8th century",
+              "culture": "Chinese",
+              "medium": "Cast bronze",
+              "people": [],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:DDC111116_dynmc",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/209837",
+              "lastUpdate": "2026-05-09T04:35:41-04:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "classification:Prints",
+      "name": "Prints",
+      "count": 1,
+      "subtopics": [
+        {
+          "id": "era:16th century",
+          "name": "16th century",
+          "eraSource": "century",
+          "count": 1,
+          "items": [
+            {
+              "id": 250377,
+              "title": "Circumcision",
+              "classification": "Prints",
+              "era": "16th century",
+              "eraSource": "century",
+              "period": null,
+              "century": "16th century",
+              "dated": "before 1573",
+              "culture": "Netherlandish",
+              "medium": "Engraving print in black ink on off-white antique laid paper, darkened and soiled",
+              "people": [
+                "Hieronymus Wierix",
+                "After Chrispijn van den Broeck"
+              ],
+              "imageUrl": "https://nrs.harvard.edu/urn-3:HUAM:INV189596_dynmc",
+              "museumUrl": "https://www.harvardartmuseums.org/collections/object/250377",
+              "lastUpdate": "2026-05-09T04:37:01-04:00"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

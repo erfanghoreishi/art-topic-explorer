@@ -1,5 +1,9 @@
-# GitHub Actions repository VARIABLES template
+# GitHub Actions repository VARIABLES template / source of truth.
 # Path: Settings -> Secrets and variables -> Actions -> Variables
+#
+# After editing, sync to GitHub before pushing:
+#     ./scripts/sync-github-vars.sh
+# (requires `gh auth login` with `repo` scope)
 
 AWS_ROLE_ARN=arn:aws:iam::877485452489:role/github-actions-deploy-role
 AWS_REGION=eu-west-2
@@ -21,6 +25,10 @@ RAW_BUCKET=ham-topic-explorer-raw-877485452489-eu-west-2-an
 CURATED_BUCKET=ham-topic-explorer-curated-877485452489-eu-west-2-an
 RAW_KEY=raw/objects.jsonl
 DATASET_KEY=datasets/topic_tree.json
+TOPICS_INDEX_KEY=datasets/topics_index.json
+TOPICS_PAGE_PREFIX=datasets/topics/page_
+TOPICS_PAGE_SIZE=6
+TOPICS_MAX_PAGES=10
 INGESTION_STATE_KEY=admin/ingestion_state.json
 SNS_TOPIC_ARN=
 DATASET_FRESHNESS_MAX_HOURS=26
@@ -30,6 +38,8 @@ ADMIN_REFRESH_COOLDOWN_SECONDS=10
 ADMIN_STATE_KEY=admin/refresh_state.json
 
 FRONTEND_DATASET_URL=https://ham-topic-explorer-curated-877485452489-eu-west-2-an.s3.eu-west-2.amazonaws.com/datasets/topic_tree.json
+FRONTEND_TOPICS_INDEX_URL=https://ham-topic-explorer-curated-877485452489-eu-west-2-an.s3.eu-west-2.amazonaws.com/datasets/topics_index.json
+FRONTEND_TOPICS_PAGE_URL_TEMPLATE=https://ham-topic-explorer-curated-877485452489-eu-west-2-an.s3.eu-west-2.amazonaws.com/datasets/topics/page_{page}.json
 ADMIN_API_URL=https://q8fhj5i6oi.execute-api.eu-west-2.amazonaws.com/main/admin
 
 EC2_HOST=museum.ghoreishi.dev

@@ -17,6 +17,33 @@ A scheduled Lambda fetches and normalises objects from the `/object` endpoint, g
 - Era derivation: `period` → `century` → `"Unknown Era"`
 - Admin API (shared-secret) for manual refresh and schedule changes
 - CloudWatch alarms for Lambda errors and dataset freshness
+- Paginated topic outputs (`datasets/topics_index.json` + `datasets/topics/page_<n>.json`) so the frontend only loads the visible page
+
+---
+
+## Dataset contract
+
+The ingestion pipeline publishes three artifacts under `s3://CURATED_BUCKET/datasets/`:
+
+1. **`topic_tree.json`** *(legacy/full)* — single monolithic tree (`Classification → Era → Items`). Still written for backward compatibility and used by the frontend for drill-down (classification/era/artwork detail pages).
+2. **`topics_index.json`** *(manifest)* — small file the frontend fetches first.
+   ```json
+   {
+     "lastUpdated": "2026-05-09T12:34:56+00:00",
+     "totalTopics": 60,
+     "exposedTopics": 60,
+     "pageSize": 6,
+     "lastPage": 10,
+     "maxPages": 10,
+     "version": "2026-05-09T12:34:56+00:00",
+     "pages": ["page_1.json", "page_2.json", ...]
+   }
+   ```
+3. **`topics/page_<n>.json`** *(per-page slice)* — `{ page, pageSize, totalTopics, lastPage, topics }`. Topics are sorted by count and chunked in `TOPICS_PAGE_SIZE` slices, capped at `TOPICS_PAGE_SIZE * TOPICS_MAX_PAGES`.
+
+**Publish ordering invariant.** Each ingestion run writes all `page_<n>.json` files first, deletes any stale page files left over from a smaller previous run, and then writes `topics_index.json` last. This guarantees clients never see an index pointing at a page that hasn't been written yet.
+
+**Bucket policy.** `datasets/*` (recursive) must be public-read for the frontend to fetch index and page files directly. The existing `s3:GetObject` allow on `datasets/*` covers the new keys without changes.
 
 ---
 
@@ -182,3 +209,15 @@ Two GitHub Actions workflows:
 - **`deploy-main.yml`** — runs tests, builds the Lambda bundle, updates Lambda env vars and code, renders `frontend/config.js`, and rsyncs frontend files to an EC2 host
 
 See `.github/actions-vars.example` and `.github/actions-secrets.example` for the full list of required repository variables and secrets.
+
+### Syncing GitHub Actions variables
+
+`.github/actions-vars.example` is the **source of truth** for GitHub Actions repository variables. The deploy workflow reads `${{ vars.* }}` at the start of each run, so any edits to this file must be pushed to GitHub vars **before** triggering a deploy — otherwise the new values won't take effect until the *next* run.
+
+```bash
+gh auth login                                # one-time, needs `repo` scope
+./scripts/sync-github-vars.sh                # apply each KEY=VALUE in the file
+git push                                     # then trigger the deploy
+```
+
+The script is a thin loop over the file calling `gh variable set` per line — repo is auto-detected from your git remote. The deploy workflow prints a `::warning::` reminder at the start of each run as a safety net. Only **variables** are managed here; secrets (`HARVARD_ART_API_KEY`, `ADMIN_TOKEN`, `EC2_SSH_PRIVATE_KEY`) are set separately via `gh secret set`.

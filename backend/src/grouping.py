@@ -122,6 +122,56 @@ def flatten_items(dataset: JsonDict) -> List[JsonDict]:
     return items
 
 
+def build_paginated_views(
+    dataset: JsonDict,
+    page_size: int,
+    max_pages: int,
+) -> Tuple[List[JsonDict], JsonDict]:
+    """Slice dataset['topics'] (already sorted/capped) into per-page payloads + an index manifest.
+
+    Returns (page_payloads, index_payload). Topics beyond page_size*max_pages are not exposed
+    via pages, but totalTopics in the index reflects the full dataset.
+    """
+    page_size = max(int(page_size), 1)
+    max_pages = max(int(max_pages), 1)
+
+    topics = list(dataset.get("topics", []))
+    total_topics = len(topics)
+    exposed = topics[: page_size * max_pages]
+
+    pages: List[JsonDict] = []
+    if exposed:
+        last_page = (len(exposed) + page_size - 1) // page_size
+    else:
+        last_page = 0
+
+    for page_num in range(1, last_page + 1):
+        start = (page_num - 1) * page_size
+        chunk = exposed[start : start + page_size]
+        pages.append(
+            {
+                "page": page_num,
+                "pageSize": page_size,
+                "totalTopics": total_topics,
+                "lastPage": last_page,
+                "topics": chunk,
+            }
+        )
+
+    last_updated = dataset.get("lastUpdated") or _now_iso()
+    index = {
+        "lastUpdated": last_updated,
+        "totalTopics": total_topics,
+        "exposedTopics": len(exposed),
+        "pageSize": page_size,
+        "lastPage": last_page,
+        "maxPages": max_pages,
+        "version": last_updated,
+        "pages": [f"page_{n}.json" for n in range(1, last_page + 1)],
+    }
+    return pages, index
+
+
 def merge_datasets(existing: JsonDict, incoming: JsonDict) -> JsonDict:
     """
     Merge two datasets in append mode.

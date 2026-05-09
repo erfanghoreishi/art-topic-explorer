@@ -21,6 +21,10 @@
 
   const state = {
     dataset: null,
+    datasetLoadingPromise: null,
+    topicsIndex: null,
+    pagesCache: new Map(),
+    currentPage: 1,
     topicsById: new Map(),
     erasByKey: new Map(),
     artworksById: new Map(),
@@ -28,6 +32,13 @@
     error: "",
     adminToken: "",
   };
+
+  function validatePageNumber(n, lastPage) {
+    const page = Math.floor(Number(n));
+    if (!Number.isFinite(page) || page < 1) return 1;
+    if (lastPage > 0 && page > lastPage) return lastPage;
+    return page;
+  }
 
   function setAdminUi(loggedIn) {
     adminControlsEl?.classList.toggle("hidden", !loggedIn);
@@ -75,7 +86,10 @@
     const path = hash.replace(/^#/, "");
     const parts = path.split("/").filter(Boolean);
 
-    if (parts.length === 0) return { name: "home" };
+    if (parts.length === 0) return { name: "home", page: 1 };
+    if (parts[0] === "page" && parts[1]) {
+      return { name: "home", page: Number(parts[1]) || 1 };
+    }
     if (parts[0] === "classification" && parts[1] && !parts[2]) {
       return { name: "classification", classificationId: decodeURIComponent(parts[1]) };
     }
@@ -133,24 +147,69 @@
     return count;
   }
 
-  async function loadDataset() {
+  async function ensureFullDataset() {
+    if (state.dataset) return state.dataset;
+    if (state.datasetLoadingPromise) return state.datasetLoadingPromise;
+    const url = window.APP_CONFIG?.datasetUrl || "./dataset.json";
+    state.datasetLoadingPromise = fetch(url, { cache: "no-store" })
+      .then((res) => {
+        if (!res.ok) throw new Error(`Failed to fetch dataset (${res.status})`);
+        return res.json();
+      })
+      .then((dataset) => {
+        state.dataset = dataset;
+        buildIndexes(dataset);
+        return dataset;
+      })
+      .catch((err) => {
+        state.datasetLoadingPromise = null;
+        throw err;
+      });
+    return state.datasetLoadingPromise;
+  }
+
+  async function loadTopicsIndex() {
+    const url = window.APP_CONFIG?.topicsIndexUrl || "./topics_index.json";
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) throw new Error(`Failed to fetch topics index (${res.status})`);
+    const index = await res.json();
+    state.topicsIndex = index;
+    state.pagesCache.clear();
+    lastUpdatedEl.textContent = `Last updated: ${formatDate(index.lastUpdated)}`;
+    datasetStatsEl.textContent = `Topics: ${index.totalTopics ?? "--"}`;
+    return index;
+  }
+
+  function topicsPageUrl(n) {
+    const tmpl =
+      window.APP_CONFIG?.topicsPageUrlTemplate || "./topics/page_{page}.json";
+    return tmpl.replace("{page}", String(n));
+  }
+
+  async function loadTopicsPage(n) {
+    if (state.pagesCache.has(n)) return state.pagesCache.get(n);
+    const res = await fetch(topicsPageUrl(n), { cache: "no-store" });
+    if (!res.ok) {
+      const err = new Error(`Failed to fetch page ${n} (${res.status})`);
+      err.status = res.status;
+      throw err;
+    }
+    const payload = await res.json();
+    state.pagesCache.set(n, payload);
+    return payload;
+  }
+
+  async function bootstrap() {
     state.loading = true;
     state.error = "";
     setLoadingUi();
     try {
-      const url = window.APP_CONFIG?.datasetUrl || "./dataset.json";
-      const res = await fetch(url, { cache: "no-store" });
-      if (!res.ok) throw new Error(`Failed to fetch dataset (${res.status})`);
-      const dataset = await res.json();
-      state.dataset = dataset;
-      buildIndexes(dataset);
-      lastUpdatedEl.textContent = `Last updated: ${formatDate(dataset.lastUpdated)}`;
-      datasetStatsEl.textContent = `Topics: ${(dataset.topics || []).length} | Artworks: ${countArtworks(dataset)}`;
+      await loadTopicsIndex();
       state.loading = false;
       renderCurrentRoute();
     } catch (err) {
       state.loading = false;
-      state.error = err?.message || "Failed to load dataset";
+      state.error = err?.message || "Failed to load topics index";
       setErrorUi(state.error);
     }
   }
@@ -173,40 +232,105 @@
     return "";
   }
 
-  function renderHome() {
-    const topics = state.dataset?.topics ?? [];
+  function renderPaginationBar(currentPage, lastPage) {
+    if (!lastPage || lastPage <= 1) return "";
+    const buttons = [];
+    const prev = Math.max(1, currentPage - 1);
+    const next = Math.min(lastPage, currentPage + 1);
+    buttons.push(
+      `<a class="page-btn ${currentPage === 1 ? "disabled" : ""}" href="#/page/${prev}">«</a>`
+    );
+    for (let n = 1; n <= lastPage; n++) {
+      const cls = n === currentPage ? "page-btn current" : "page-btn";
+      buttons.push(`<a class="${cls}" href="#/page/${n}">${n}</a>`);
+    }
+    buttons.push(
+      `<a class="page-btn ${currentPage === lastPage ? "disabled" : ""}" href="#/page/${next}">»</a>`
+    );
+    return `<nav class="pagination" aria-label="Topic pages">${buttons.join("")}</nav>`;
+  }
+
+  async function renderHomePage(requestedPage) {
+    if (!state.topicsIndex) {
+      try {
+        await loadTopicsIndex();
+      } catch (err) {
+        return setErrorUi(err.message || "Failed to load topics index.");
+      }
+    }
+    const index = state.topicsIndex;
+    const lastPage = Number(index.lastPage || 0);
+    const totalTopics = Number(index.totalTopics || 0);
+
     renderBreadcrumbs([{ label: "Home" }]);
 
-    if (topics.length === 0) {
+    if (lastPage === 0 || totalTopics === 0) {
       appEl.innerHTML = '<section class="state">No classifications available.</section>';
       return;
     }
 
+    const page = validatePageNumber(requestedPage, lastPage);
+    state.currentPage = page;
+
+    appEl.innerHTML = '<section class="state">Loading page...</section>';
+
+    let payload;
+    try {
+      payload = await loadTopicsPage(page);
+    } catch (err) {
+      const friendly =
+        err.status === 404
+          ? "This page is no longer available."
+          : err.message || "Failed to load page.";
+      appEl.innerHTML = `
+        <section class="state error">
+          <p>${escapeHtml(friendly)}</p>
+          <button id="reload-index-btn" class="btn">Reload and go to page 1</button>
+        </section>
+      `;
+      document
+        .getElementById("reload-index-btn")
+        ?.addEventListener("click", async () => {
+          try {
+            await loadTopicsIndex();
+            window.location.hash = "#/page/1";
+          } catch (e) {
+            setErrorUi(e?.message || "Reload failed.");
+          }
+        });
+      return;
+    }
+
+    const topics = payload.topics || [];
+    const cards = topics
+      .map((topic) => {
+        const cover = pickCoverImage(topic);
+        return `
+          <a class="card" href="#/classification/${encodeURIComponent(topic.id)}">
+            <div class="thumb-wrap">
+              ${
+                cover
+                  ? `<img class="thumb" src="${escapeHtml(cover)}" alt="${escapeHtml(topic.name)}" loading="lazy" />`
+                  : `<div class="thumb placeholder">No image</div>`
+              }
+            </div>
+            <div class="card-body">
+              <h3>${escapeHtml(topic.name)}</h3>
+              <p>${topic.count || 0} artworks</p>
+            </div>
+          </a>
+        `;
+      })
+      .join("");
+
     appEl.innerHTML = `
       <section>
-        <h2>Classifications</h2>
-        <div class="card-grid">
-          ${topics
-            .map((topic) => {
-              const cover = pickCoverImage(topic);
-              return `
-                <a class="card" href="#/classification/${encodeURIComponent(topic.id)}">
-                  <div class="thumb-wrap">
-                    ${
-                      cover
-                        ? `<img class="thumb" src="${escapeHtml(cover)}" alt="${escapeHtml(topic.name)}" loading="lazy" />`
-                        : `<div class="thumb placeholder">No image</div>`
-                    }
-                  </div>
-                  <div class="card-body">
-                    <h3>${escapeHtml(topic.name)}</h3>
-                    <p>${topic.count || 0} artworks</p>
-                  </div>
-                </a>
-              `;
-            })
-            .join("")}
+        <div class="page-header">
+          <h2>Classifications</h2>
+          <p class="meta">Page ${page} of ${lastPage} — ${totalTopics} total topics</p>
         </div>
+        <div class="card-grid">${cards}</div>
+        ${renderPaginationBar(page, lastPage)}
       </section>
     `;
   }
@@ -375,20 +499,38 @@
     appEl.innerHTML = `<section class="state error">${escapeHtml(message)}</section>`;
   }
 
+  async function withFullDataset(renderFn) {
+    if (state.dataset) return renderFn();
+    appEl.innerHTML = '<section class="state">Loading details...</section>';
+    try {
+      await ensureFullDataset();
+      renderFn();
+    } catch (err) {
+      setErrorUi(err?.message || "Failed to load full dataset.");
+    }
+  }
+
   function renderCurrentRoute() {
     if (state.loading) return;
-    if (!state.dataset) return setErrorUi(state.error || "Dataset not loaded");
-
     const route = parseHash();
-    if (route.name === "home") return renderHome();
-    if (route.name === "classification") return renderClassification(route.classificationId);
-    if (route.name === "era") return renderEra(route.classificationId, route.eraId);
-    if (route.name === "artwork") return renderArtworkDetail(route.artworkId);
+    if (route.name === "home") {
+      if (!state.topicsIndex) return setErrorUi(state.error || "Index not loaded");
+      return renderHomePage(route.page);
+    }
+    if (route.name === "classification")
+      return withFullDataset(() => renderClassification(route.classificationId));
+    if (route.name === "era")
+      return withFullDataset(() => renderEra(route.classificationId, route.eraId));
+    if (route.name === "artwork")
+      return withFullDataset(() => renderArtworkDetail(route.artworkId));
     return renderNotFound("Page not found.");
   }
 
   refreshBtn.addEventListener("click", () => {
-    loadDataset();
+    state.dataset = null;
+    state.datasetLoadingPromise = null;
+    state.pagesCache.clear();
+    bootstrap();
   });
 
   async function callAdminApi(payload) {
@@ -518,5 +660,5 @@
 
   window.addEventListener("hashchange", renderCurrentRoute);
   initAdminToken();
-  loadDataset();
+  bootstrap();
 })();
